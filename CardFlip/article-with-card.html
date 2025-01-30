@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preload" as="image" href="CardFront_1.png">
+    <link rel="preload" as="image" href="CardBack_1.png">
+    <style>
+        /* Previous styles remain the same */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        article {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 40px 0;
+            padding: 40px;
+            border-radius: 8px;
+            position: relative;
+        }
+        .caption {
+            color: black;
+            margin-top: 20px;
+            font-size: 16px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+        }
+        .arrow {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 15px solid black;
+            transform-origin: center;
+            animation: bounce 1s infinite;
+            margin-left: 10px;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .card {
+            width: 300px;
+            height: 450px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform .6s;
+            cursor: pointer;
+        }
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+        .card-face {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .card img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            border-radius: 15px;
+        }
+        .back {
+            transform: rotateY(180deg);
+        }
+        .reflection {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+            transform: skewX(45deg) translateX(-150%);
+        }
+        .reflection.animate {
+            animation: sweep .6s ease-in-out;
+        }
+        @keyframes sweep {
+            from { transform: skewX(45deg) translateX(-150%); }
+            to { transform: skewX(45deg) translateX(150%); }
+        }
+    </style>
+</head>
+<body>
+    <article>
+        <!-- Previous article content remains the same until the card container -->
+        
+        <h1>Aarni Riihimäki: The Finnish Phenom Redefining the Game</h1>
+        
+        <!-- ... (previous content) ... -->
+
+        <h2>Marketing Himself with ProdigyCards and NIL Opportunities</h2>
+        <p>As Riihimäki's profile continues to rise, he has embraced modern marketing strategies to build his personal brand. He has partnered with ProdigyCards, a cutting-edge platform that allows young athletes to create and sell digital and physical trading cards featuring their likeness. By leveraging ProdigyCards, Riihimäki has tapped into Name, Image, and Likeness (NIL) opportunities, enabling him to connect with fans, monetize his growing reputation, and attract sponsorship deals. His ProdigyCards showcase not only his on-ice achievements but also behind-the-scenes glimpses into his training and daily life, making him more accessible to a global audience. This innovative approach is setting a precedent for other young athletes looking to capitalize on their success while still in the early stages of their careers.</p>
+
+        <div class="card-container">
+            <div onclick="flipCard()">
+                <div class="card" id="card">
+                    <div class="card-face">
+                        <img src="CardFront_1.png">
+                        <div class="reflection" id="frontReflection"></div>
+                    </div>
+                    <div class="card-face back">
+                        <img src="CardBack_1.png">
+                        <div class="reflection" id="backReflection"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="caption"><div class="arrow"></div>Click on Aarni's ProdigyCard to flip</div>
+        </div>
+
+        <h2>International Stardom and NHL Buzz</h2>
+        <p>Riihimäki's performances in Liiga did not go unnoticed by the national team selectors. He was called up to represent Finland at the World Junior Championship, where he led his team to a silver medal, finishing as one of the tournament's top scorers. His clutch performances, including a stunning hat-trick against Canada in the semifinals, solidified his status as a future star.</p>
+
+        <p>With the 2025 NHL Draft approaching, Riihimäki's name is at the top of nearly every scout's list. Projected as a potential top-five pick, he has drawn interest from several NHL teams, with franchises like the Chicago Blackhawks, Montreal Canadiens, and Detroit Red Wings reportedly considering him as a franchise cornerstone.</p>
+
+        <p>"Aarni is the total package," said NHL analyst Craig Button. "He's got the speed, the hands, the vision, and the work ethic. He's a player who can change the trajectory of a franchise."</p>
+
+        <h2>A Bright Future Ahead</h2>
+        <p>As Riihimäki continues to develop, the sky is the limit for this Finnish prodigy. Whether he stays in Liiga for another season or makes the jump to the NHL right away, one thing is clear—he is a name that hockey fans around the world should remember.</p>
+
+        <p>"I just want to keep improving every day," Riihimäki said. "I know there's a lot of hard work ahead, but I'm ready for it. My dream is to play in the NHL, and I'll do whatever it takes to get there."</p>
+
+        <p>For Finland, a country that has given the hockey world legends like Jari Kurri, Saku Koivu, and Patrik Laine, Aarni Riihimäki represents the next chapter in its storied hockey legacy. And for the rest of the hockey world, he is a future superstar in the making.</p>
+    </article>
+
+    <script>
+        function flipCard() {
+            const card = document.getElementById('card'),
+                  reflection = card.classList.contains('flipped') ?
+                      document.getElementById('frontReflection') :
+                      document.getElementById('backReflection');
+            reflection.classList.remove('animate');
+            void reflection.offsetWidth;
+            reflection.classList.add('animate');
+            card.classList.toggle('flipped');
+        }
+    </script>
+</body>
+</html>
